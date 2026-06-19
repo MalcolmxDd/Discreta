@@ -32,3 +32,5 @@ api/vendor/
 .firebase/
 .claude/
 *.zip
+.firebaserc
+nul
