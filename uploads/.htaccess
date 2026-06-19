@@ -1,0 +1,16 @@
+# =============================================================
+# Seguridad — Directorio de uploads
+# =============================================================
+
+# Deshabilitar listado de directorios
+Options -Indexes
+
+# Bloquear ejecución de PHP en uploads
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# Cache de imágenes: 7 días
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Header set Cache-Control "public, max-age=604800, immutable"
+</FilesMatch>

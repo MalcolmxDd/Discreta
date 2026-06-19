@@ -1,0 +1,9 @@
+# robots.txt — DiscretaStore
+# https://discretasex.cl
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://discretasex.cl/sitemap.xml

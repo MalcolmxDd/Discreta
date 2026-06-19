@@ -1,0 +1,229 @@
+:root {
+  --bg: #fdf5f7;
+  --surface: #ffffff;
+  --surface-hover: #f0f0f2;
+  --border: #e5e5ea;
+  --border-light: #d1d1d6;
+
+  --text: #3a3a3e;
+  --text-secondary: #8e8e93;
+  --heading: #1c1c1e;
+
+  --accent: #e94e8a;
+  --accent-dim: rgba(233, 78, 138, 0.08);
+  --accent-glow: rgba(233, 78, 138, 0.15);
+  --accent-hover: #d43d78;
+
+  --danger: #e45a5a;
+  --success: #34c759;
+
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Outfit', 'Segoe UI', sans-serif;
+
+  --max-width: 1120px;
+  --nav-height: 64px;
+
+  scroll-behavior: smooth;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f0d0e;
+  --surface: #181516;
+  --surface-hover: #221f20;
+  --border: #2c2829;
+  --border-light: #3e383a;
+
+  --text: #e0d8da;
+  --text-secondary: #9c9294;
+  --heading: #ffffff;
+
+  --accent: #f06295;
+  --accent-dim: rgba(240, 98, 149, 0.12);
+  --accent-glow: rgba(240, 98, 149, 0.25);
+  --accent-hover: #e91e63;
+
+  --danger: #ff6b6b;
+  --success: #51cf66;
+  
+  color-scheme: dark;
+}
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+h3 { font-size: clamp(1.1rem, 2vw, 1.3rem); }
+
+p { margin: 0; }
+
+a { color: var(--accent); text-decoration: none; transition: color 0.25s; }
+a:hover { color: var(--accent-hover); }
+
+img { max-width: 100%; display: block; }
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--heading);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 52% 48% / 40% 48% 52% 60%; }
+  25% { border-radius: 58% 42% 40% 60% / 52% 38% 62% 48%; }
+  50% { border-radius: 48% 52% 58% 42% / 56% 48% 52% 44%; }
+  75% { border-radius: 38% 62% 46% 54% / 44% 56% 44% 56%; }
+}
+
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15px, -15px) scale(1.03); }
+  66% { transform: translate(-10px, 10px) scale(0.97); }
+}
+
+@keyframes ring-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes hero-word-in {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes hero-subtitle-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-actions-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(233,78,138,0.08); }
+  50% { box-shadow: 0 0 30px var(--accent-glow), 0 0 80px rgba(233,78,138,0.15); }
+}
+
+@keyframes cta-glow-drift {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  50% { transform: translate(-50%, -40%) scale(1.2); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+}
+
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+
+@keyframes visual-glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+
+.animate-in {
+  animation: fade-up 0.5s ease-out both;
+}
+.animate-in-delay-1 { animation-delay: 0.1s; }
+.animate-in-delay-2 { animation-delay: 0.2s; }
+.animate-in-delay-3 { animation-delay: 0.3s; }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+}

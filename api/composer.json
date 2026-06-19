@@ -1,0 +1,6 @@
+{
+  "name": "discretastore/api",
+  "require": {
+    "mercadopago/dx-php": "^3.0"
+  }
+}

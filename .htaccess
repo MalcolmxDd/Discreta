@@ -1,0 +1,15 @@
+as# =============================================================
+# DiscretaStore — .htaccess
+# =============================================================
+
+# --- Redirigir HTTP a HTTPS ---
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# --- SPA Routing: todas las rutas no-archivo → index.html ---
+# NOTA: Excluye /api/* para que el backend PHP las maneje
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule ^(.*)$ index.html [QSA,L]
