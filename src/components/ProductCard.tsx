@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart, Star, Eye, Sparkles, ShoppingCart } from "lucide-react";
 import type { Product } from "../types";
 import { useWishlist } from "../context/WishlistContext";
@@ -9,6 +9,14 @@ import { categoryIconsSmall } from "../data/categories";
 
 interface Props {
   product: Product;
+}
+
+function isTouchDevice(): boolean {
+  return (
+    window.matchMedia("(pointer: coarse)").matches ||
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0
+  );
 }
 
 function StarRating({ value }: { value: number }) {
@@ -31,8 +39,34 @@ export default function ProductCard({ product }: Props) {
   const { addItem } = useCart();
   const { addToast } = useToast();
   const [adding, setAdding] = useState(false);
+  const [selected, setSelected] = useState(false);
   const isFav = isFavorite(product.id);
   const cardRef = useRef<HTMLAnchorElement>(null);
+  const navigate = useNavigate();
+
+  // Cerrar overlay al hacer click/tap fuera
+  useEffect(() => {
+    if (!selected) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        setSelected(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [selected]);
+
+  // Manejar tap en mobile: mostrar overlay sin navegar
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (!isTouchDevice()) return; // desktop: comportamiento normal
+    if (selected) return; // ya seleccionado, dejar que navegue
+    e.preventDefault();
+    setSelected(true);
+  };
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,6 +76,12 @@ export default function ProductCard({ product }: Props) {
     addItem(product, 1);
     addToast(`${product.name} agregado al carrito`, "success");
     setTimeout(() => setAdding(false), 1200);
+  };
+
+  const handleViewDetail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/productos/${product.slug}`);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -68,7 +108,8 @@ export default function ProductCard({ product }: Props) {
     <Link
       ref={cardRef}
       to={`/productos/${product.slug}`}
-      className="product-card"
+      className={`product-card${selected ? " selected" : ""}`}
+      onClick={handleCardClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -92,11 +133,11 @@ export default function ProductCard({ product }: Props) {
           />
         </button>
 
-        <div className="product-card-overlay">
-          <span className="product-card-view">
+        <div className="product-card-overlay" onClick={(e) => e.stopPropagation()}>
+          <button className="product-card-view" onClick={handleViewDetail}>
             <Eye size={14} />
             Ver detalle
-          </span>
+          </button>
           {product.inStock && (
             <button className="product-card-add-btn" onClick={handleQuickAdd} title="Agregar al carrito" aria-label="Agregar al carrito">
               <ShoppingCart size={14} />

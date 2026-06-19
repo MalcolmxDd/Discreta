@@ -104,7 +104,7 @@ export default function Contact() {
             <span className="contact-item-icon"><Mail size={18} /></span>
             <div>
               <h4>Email</h4>
-              <p>hola@discretastore.cl</p>
+              <p>contacto@discretasex.cl</p>
             </div>
           </div>
           <div className="contact-item">

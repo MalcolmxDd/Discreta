@@ -11,6 +11,7 @@ import logoImg from "../img/logo.png";
 import Breadcrumbs from "./Breadcrumbs";
 import WhatsAppButton from "./WhatsAppButton";
 import TrackingScripts from "./TrackingScripts";
+import CookieConsent from "./CookieConsent";
 
 export default function Layout() {
   const { totalItems } = useCart();
@@ -226,6 +227,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <WhatsAppButton />
+      <CookieConsent />
 
       <footer className="App-footer">
         <div className="footer-content">
